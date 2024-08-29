@@ -4,6 +4,8 @@ import { Map } from "@vis.gl/react-google-maps";
 import Views from "@/components/views";
 import { getRandomLocation } from "@/server/getRandomLocation";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const firstLocation = await getRandomLocation();
   const secondLocation = await getRandomLocation();
