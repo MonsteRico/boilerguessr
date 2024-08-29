@@ -5,6 +5,7 @@ import { locations, users } from "./db/schema";
 import { DBLocation } from "./db/schema";
 import { Location } from "@/lib/types";
 import { parse } from "path";
+export const dynamic="force-dynamic"
 
 export async function getRandomLocation(): Promise<Location> {
   const [location] = await db
