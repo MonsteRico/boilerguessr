@@ -5,13 +5,13 @@ import { Map, Marker } from "@vis.gl/react-google-maps";
 import { Button } from "./ui/button";
 
 function GuessView() {
-  const { userPosition, setUserPosition, view, setView, location } =
+  const { userPosition, setUserPosition, view, setView, currentLocation } =
     useContext(GameContext);
 
   return (
     <>
       <div className="my-2 flex h-[95dvh] flex-col items-center gap-4">
-        {location && <img src={location.img} className="h-[90%] w-full" />}
+        {currentLocation && <img src={currentLocation.img} className="h-[90%] w-full" />}
       </div>
       <div className="absolute group bottom-8 right-1 flex h-[15rem] w-[24rem] flex-col opacity-50 transition-all duration-300 hover:h-[30rem] hover:w-[48rem] hover:opacity-100">
         <Map

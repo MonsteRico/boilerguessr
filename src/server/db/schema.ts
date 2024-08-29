@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  decimal,
   index,
   integer,
   pgTableCreator,
@@ -19,11 +20,10 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const createTable = pgTableCreator((name) => `boilerguessr_${name}`);
 
-export const posts = createTable(
-  "post",
+export const locations = createTable(
+  "location",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
     createdById: varchar("created_by", { length: 255 })
       .notNull()
       .references(() => users.id),
@@ -33,12 +33,19 @@ export const posts = createTable(
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
       () => new Date()
     ),
-  },
-  (example) => ({
-    createdByIdIdx: index("created_by_idx").on(example.createdById),
-    nameIndex: index("name_idx").on(example.name),
-  })
+    latitude: decimal("latitude", { precision: 10, scale: 6 }).notNull(),
+    longitude: decimal("longitude", { precision: 10, scale: 6 }).notNull(),
+    imgUrl: varchar("img_url", { length: 255 }).notNull(),
+  }
 );
+
+export const locationsRelations = relations(locations, ({ one }) => ({
+  createdBy: one(users, { fields: [locations.createdById], references: [users.id] }),
+}));
+
+export type DBLocation = typeof locations.$inferSelect;
+export type InsertDBLocation = typeof locations.$inferInsert;
+
 
 export const users = createTable("user", {
   id: varchar("id", { length: 255 })
@@ -57,6 +64,8 @@ export const users = createTable("user", {
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
 }));
+
+export type DBUser = typeof users.$inferSelect;
 
 export const accounts = createTable(
   "account",

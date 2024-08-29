@@ -1,3 +1,4 @@
+import { Location } from "@/lib/types";
 import { createContext } from "react";
 
 export const GameContext = createContext<{
@@ -13,10 +14,11 @@ export const GameContext = createContext<{
   ) => void;
   view: "guess" | "answer";
   setView: (view: "guess" | "answer") => void;
-  location: null | {
-    latLng: { lat: number; lng: number };
-    img: string;
-  };
+  currentLocation: null | Location;
+  setCurrentLocation: (currentLocation: null | Location) => void;
+  nextLocation: null | Location;
+  setNextLocation: (nextLocation: null | Location) => void;
+  
 }>({
   userPosition: null,
   setUserPosition: (
@@ -27,5 +29,8 @@ export const GameContext = createContext<{
   ) => {},
   view: "guess",
   setView: (view: "guess" | "answer") => {},
-  location: null,
+  currentLocation: null,
+  setCurrentLocation: (currentLocation: null | Location) => {},
+  nextLocation: null,
+  setNextLocation: (nextLocation: null | Location) => {},
 });

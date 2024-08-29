@@ -1,4 +1,6 @@
+import LoginButton from "@/components/loginButton";
 import Providers from "@/components/providers";
+import { Button } from "@/components/ui/button";
 import { env } from "@/env";
 import "@/styles/globals.css";
 import { APIProvider } from "@vis.gl/react-google-maps";
@@ -21,6 +23,7 @@ export default function RootLayout({
         <body>
           <div className="flex min-h-[5dvh] flex-row items-center gap-4">
             <p>Top Bar</p>
+            <LoginButton />
           </div>
           {children}
         </body>
