@@ -4,7 +4,7 @@ import React from 'react'
 
 function Providers({ mapsKey, children }: { mapsKey: string, children: React.ReactNode }) {
   return (
-    <APIProvider apiKey={mapsKey}>
+    <APIProvider apiKey={mapsKey} libraries={["geometry"]}>
         {children}
     </APIProvider>
   )

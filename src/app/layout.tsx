@@ -18,7 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <Providers mapsKey={env.GOOGLE_MAPS_KEY}>
-        <body>{children}</body>
+        <body>
+          <div className="flex min-h-[5dvh] flex-row items-center gap-4">
+            <p>Top Bar</p>
+          </div>
+          {children}
+        </body>
       </Providers>
     </html>
   );
