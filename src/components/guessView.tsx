@@ -11,7 +11,7 @@ function GuessView() {
   return (
     <>
       <div className="my-2 flex h-[95dvh] flex-col items-center gap-4">
-        {currentLocation && <img src={currentLocation.img} className="h-[90%] w-full" />}
+        {currentLocation && <img src={currentLocation.imgUrl} className="h-[90%] w-full" />}
       </div>
       <div className="absolute group bottom-8 right-1 flex h-[15rem] w-[24rem] flex-col opacity-50 transition-all duration-300 hover:h-[30rem] hover:w-[48rem] hover:opacity-100">
         <Map

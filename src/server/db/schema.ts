@@ -36,6 +36,8 @@ export const locations = createTable(
     latitude: decimal("latitude", { precision: 10, scale: 6 }).notNull(),
     longitude: decimal("longitude", { precision: 10, scale: 6 }).notNull(),
     imgUrl: varchar("img_url", { length: 255 }).notNull(),
+    likes: integer("likes").default(0).notNull(),
+    dislikes: integer("dislikes").default(0).notNull(),
   }
 );
 
@@ -59,6 +61,8 @@ export const users = createTable("user", {
     withTimezone: true,
   }).default(sql`CURRENT_TIMESTAMP`),
   image: varchar("image", { length: 255 }),
+  pointsFromImages: integer("points_from_images").default(0).notNull(),
+  pointsFromGuesses: integer("points_from_guesses").default(0).notNull(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

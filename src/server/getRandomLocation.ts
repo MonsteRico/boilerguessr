@@ -21,13 +21,9 @@ export async function getRandomLocation(): Promise<Location> {
     .execute();
 
   const newLocation: Location = {
-    latLng: {
-      lat: parseFloat(location.latitude),
-      lng: parseFloat(location.longitude),
-    },
-    img: location.imgUrl,
+    ...location,
     createdBy: uploader,
   };
-  
+
   return newLocation;
 }
