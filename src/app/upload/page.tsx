@@ -1,30 +1,51 @@
 "use client";
 
+import { useToast } from "@/components/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { UploadButton } from "@/components/uploadthing";
 import { useUploadThing } from "@/lib/utils";
 import exifr from "exifr";
+import { useSession } from "next-auth/react";
+import { title } from "process";
 import { useState } from "react";
 
 export default function UploadPage() {
+  const { toast } = useToast();
+  const { data: session } = useSession();
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const { startUpload } = useUploadThing("imageUploader", {
     onClientUploadComplete: () => {
-      alert("uploaded successfully!");
+      toast({
+        title: "Uploaded successfully!",
+      });
     },
     onUploadError: () => {
-      alert("error occurred while uploading");
+      toast({
+        title: "Error occurred while uploading!",
+        variant: "destructive",
+      });
     },
     onUploadBegin: () => {
-      alert("upload has begun");
+      toast({
+        title: "Starting upload, hang tight!",
+      });
     },
   });
 
+  if (!session)
+    return (
+      <main className="flex flex-col items-center justify-between p-24">
+        <div className="text-center text-4xl font-bold">
+          Please login to upload. You shouldn't have gotten here anyways :D
+        </div>
+      </main>
+    );
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-24">
       <Input
         type="file"
         onChange={async (e) => {
